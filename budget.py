@@ -1,35 +1,25 @@
 class Budget: 
+    def __init__(self, categories): 
+        self.categories = categories 
 
-    def __init__(self, category, limit, balance): 
-        self.category = category
-        self.limit = limit
-        self.balance = balance 
-        self.id = None
-        self.user_id = None
+    def set_categories(self, categories): 
+        self.categories = categories 
 
-    def set_category(self, category): 
-        self.category = category 
-
-    def get_category(self): 
-        return self.category 
+    def get_categories(self): 
+        return self.categories 
     
-    def set_limit(self, limit): 
-        self.limit = limit 
+    def add_category(self, category): 
+        self.categories.append(category)
 
-    def get_limit(self): 
-        return self.limit 
-    
-    def set_balance(self, balance): 
-        self.balance = balance 
-    
-    def get_balance(self): 
-        return self.balance 
-    
-    def set_id(self, id): 
-        self.id = id 
+    def add_expense(self, expense): 
+        for category in self.categories: 
+            if category == expense.get_category(): 
+                category.add(expense)
+                break 
 
-    def set_user_id(self, user_id): 
-        self.user_id = user_id 
-
-    def __str__(self): 
-        return f"Budget(category='{self.category}', limit={self.limit}, balance={self.balance})"
+    def get_total(self): 
+        total = 0.0
+        for category in self.categories: 
+            total += category.get_total()
+        
+        return total
