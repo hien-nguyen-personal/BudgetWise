@@ -1,36 +1,39 @@
+from envelope import Envelope
+from datetime import date
+
 class Expense: 
-    def __init__(self, description, amount, category, date): 
-        self.description = description 
-        self.amount = amount 
-        self.category = category 
-        self.date = date 
+    def __init__(self, description, amount, envelope, expense_date): 
+        self.__description: str = description 
+        self.__amount: float = amount 
+        self.__envelope: Envelope = envelope
+        self.__date: date = expense_date 
 
     def set_description(self, description): 
-        self.description = description
+        self.__description = description
 
     def get_description(self): 
-        return self.description
+        return self.__description
     
     def set_amount(self, amount): 
-        self.amount = amount 
+        self.__amount = amount 
 
     def get_amount(self): 
-        return self.amount
+        return self.__amount
     
-    def set_category(self, category): 
-        self.category = category
+    def set_envelope(self, envelope): 
+        self.__envelope = envelope
 
-    def get_category(self): 
-        return self.category 
+    def get_envelope(self): 
+        return self.__envelope 
     
     def set_date(self, date): 
-        self.date = date 
+        self.__date = date 
 
     def get_date(self): 
-        return self.date
+        return self.__date
     
     def __str__(self): 
-        return self.description + "\n" + f"Amount: ${self.amount}" + "\n" + self.category 
+        return self.__description + "\n" + f"Amount: ${self.__amount}" + "\n" + self.__envelope 
     
 
     

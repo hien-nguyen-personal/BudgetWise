@@ -1,25 +1,27 @@
 class Budget: 
-    def __init__(self, categories): 
-        self.categories = categories 
+    def __init__(self): 
+        self.__envelopes = []
+        self.__moneyAvailable = 0 
 
-    def set_categories(self, categories): 
-        self.categories = categories 
+    def set_envelopes(self, envelopes): 
+        self.__envelopes = envelopes 
 
-    def get_categories(self): 
-        return self.categories 
+    def get_envelopes(self): 
+        return self.__envelopes 
     
-    def add_category(self, category): 
-        self.categories.append(category)
+    def add_envelope(self, envelope, amount): 
+        self.__envelopes.append(envelope)
+        self.__moneyAvailable -= amount
 
-    def add_expense(self, expense): 
-        for category in self.categories: 
-            if category == expense.get_category(): 
-                category.add(expense)
-                break 
+    def addMoney(self, amount): 
+        self.__moneyAvailable += amount
+
+    def record_expense(self, envelope, expense): 
+
 
     def get_total(self): 
         total = 0.0
-        for category in self.categories: 
-            total += category.get_total()
+        for envelope in self.envelopes: 
+            total += envelope.get_total()
         
         return total
