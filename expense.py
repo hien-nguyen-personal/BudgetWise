@@ -6,7 +6,7 @@ class Expense:
         self.__description: str = description 
         self.__amount: float = amount 
         self.__envelope: Envelope = envelope
-        self.__date: date = expense_date 
+        self.__date: date = expense_date
 
     def set_description(self, description): 
         self.__description = description
@@ -15,7 +15,8 @@ class Expense:
         return self.__description
     
     def set_amount(self, amount): 
-        self.__amount = amount 
+        if amount > 0: 
+            self.__amount = amount 
 
     def get_amount(self): 
         return self.__amount
