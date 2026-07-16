@@ -26,6 +26,12 @@ class Budget:
     def set_money_available(self, money_available: float): 
         self.__money_available = money_available
 
+    def decrease_money_available(self, amount: float): 
+        self.__money_available -= amount 
+
+    def increase_money_available(self, amount: float): 
+        self.__money_available += amount
+
     def add_money(self, money: float): 
         self.__money_available += money
 
@@ -33,6 +39,16 @@ class Budget:
         total = 0.0
         for envelope in self.__envelopes: 
             total += envelope.get_balance()
-        
         return total
+    
+    def reset_budget(self): 
+        for envelope in self.__envelopes: 
+            envelope.reset_envelope()
+    
+    def __str__(self): 
+        result = "Money available: " + f"{self.__money_available} \n" 
+        for envelope in self.__envelopes: 
+            result += f"{envelope}" + "\n"
+        return result
+
 

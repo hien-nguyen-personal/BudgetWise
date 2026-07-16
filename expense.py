@@ -34,7 +34,7 @@ class Expense:
         return self.__date
     
     def __str__(self): 
-        return self.__description + "\n" + f"Amount: ${self.__amount}" + "\n" + self.__envelope 
+        return f"{self.__description} - ${self.__amount}"
     
 
     
