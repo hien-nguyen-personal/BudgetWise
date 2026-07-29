@@ -1,12 +1,16 @@
-from envelope import Envelope
 from datetime import date
+from uuid import uuid4
 
 class Expense: 
-    def __init__(self, description, amount, envelope, expense_date): 
+    def __init__(self, description, amount, expense_date=None, envelope_id=None, id=None): 
+        self.__id: str = id or str(uuid4())
         self.__description: str = description 
         self.__amount: float = amount 
-        self.__envelope: Envelope = envelope
+        self.__envelope_id: str = envelope_id
         self.__date: date = expense_date
+
+    def get_id(self) -> str:
+        return self.__id
 
     def set_description(self, description): 
         self.__description = description
@@ -21,11 +25,11 @@ class Expense:
     def get_amount(self): 
         return self.__amount
     
-    def set_envelope(self, envelope): 
-        self.__envelope = envelope
+    def set_envelope(self, envelope_id): 
+        self.__envelope_id = envelope_id
 
-    def get_envelope(self): 
-        return self.__envelope 
+    def get_envelope_id(self): 
+        return self.__envelope_id
     
     def set_date(self, date): 
         self.__date = date 

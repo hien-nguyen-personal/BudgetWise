@@ -1,9 +1,14 @@
-from envelope import Envelope
+from models.envelope import Envelope
+from uuid import uuid4
 
 class Budget: 
-    def __init__(self): 
-        self.__envelopes: list[Envelope] = []
-        self.__money_available: float = 0 
+    def __init__(self, id=None, money_available=0, envelopes=None): 
+        self.__id: str = id or str(uuid4())
+        self.__envelopes: list[Envelope] = envelopes or []
+        self.__money_available: float = money_available
+
+    def get_id(self) -> str:
+        return self.__id
 
     def set_envelopes(self, envelopes: list[Envelope]): 
         self.__envelopes = envelopes 
@@ -18,6 +23,12 @@ class Budget:
         for envelope in self.__envelopes: 
             if envelope.get_name() == envelope_name:
                 return envelope 
+        return None
+    
+    def get_envelope_by_id(self, envelope_id: str) -> Envelope: 
+        for envelope in self.__envelopes: 
+            if envelope.get_id() == envelope_id: 
+                return envelope
         return None
     
     def get_money_available(self) -> float: 
@@ -38,7 +49,7 @@ class Budget:
     def get_total_spent(self) -> float: 
         total = 0.0
         for envelope in self.__envelopes: 
-            total += envelope.get_balance()
+            total += envelope.get_total_spent()
         return total
     
     def reset_budget(self): 
@@ -46,9 +57,8 @@ class Budget:
             envelope.reset_envelope()
     
     def __str__(self): 
-        result = "Money available: " + f"{self.__money_available} \n" 
+        result = "Money available: " + f"${self.__money_available} \n" 
         for envelope in self.__envelopes: 
             result += f"{envelope}" + "\n"
         return result
-
 

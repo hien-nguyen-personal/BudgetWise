@@ -1,11 +1,14 @@
+from uuid import uuid4
 import math
 
 class Envelope: 
-    def __init__(self, name, monthly_limit): 
+    def __init__(self, name, monthly_limit, id=None, current_limit=None, expenses=None): 
+        self.__id: str = id or str(uuid4())
         self.__name: str = name
         self.__monthly_limit: float = monthly_limit
-        self.__current_limit: float = monthly_limit
-        self.__expenses: list = []
+        self.__current_limit: float = current_limit if current_limit is not None else monthly_limit
+        self.__expenses: list = expenses or []
+
 
     def set_name(self, name: str): 
         if len(name) > 0:
@@ -32,16 +35,21 @@ class Envelope:
     def decrease_current_limit(self, amount: float): 
         self.__current_limit -= amount
 
+    def get_id(self) -> str: 
+        return self.__id
+
     def get_total_spent(self) -> float: 
-        balance = 0.0 
+        total = 0.0 
         for expense in self.__expenses: 
-            balance += expense.get_amount()
-        return balance
+            total += expense.get_amount()
+        return total
     
     def get_remaining(self) -> float: 
         return self.__current_limit - self.get_total_spent()
     
     def get_percent(self) -> float: 
+        if self.__current_limit == 0:
+            return 0
         return math.ceil(self.get_total_spent() / self.__current_limit * 100)
     
     def set_expenses(self, expenses: list): 
@@ -53,6 +61,12 @@ class Envelope:
     def record_expense(self, expense): 
         if expense.get_amount() > 0:
             self.__expenses.append(expense)
+
+    def get_expense_by_id(self, expense_id: str):
+        for expense in self.__expenses:
+            if expense.get_id() == expense_id:
+                return expense
+        return None
 
     def reset_envelope(self): 
         self.__current_limit = self.__monthly_limit
