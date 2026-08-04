@@ -1,1 +1,1 @@
-
+"""BudgetWise model classes."""
